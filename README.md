@@ -131,12 +131,6 @@ If you are testing on a mobile device or another machine, ensure that the server
 
 * [ ]  Unable to navigate to the specific section in the same markdown file or another if the link is pointing to a section. This doesn't seems to be supported by markdown_widget package
 
-## Change Log
-
-* Version **0.1.0**, 2023-10-19
-  * Initial Release with basic support
-  * basic testing on Linux and Android
-
 ## Support
 
 If you face any issues or have any enhancement suggestions, create an [issue on GitHub](https://github.com/cloudonlanapps/markdown_browser/issues) or contact me at cloudonlanapps (at) gmail (dot) com.
