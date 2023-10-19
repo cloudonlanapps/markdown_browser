@@ -2,22 +2,22 @@
 
 A package to simplify browsing markdown files.
 
-This package is useful in situations where, the application required to provide set of markdown files as help content or user manual and require a browser widget to dispay it inside flutter application.
+This package is useful in situations where the application is required to provide a set of markdown files as help content or a user manual and requires a browser widget to display it inside a Flutter application.
 
-The markdown files can be placed either in assets folder or served from a external server.
+The markdown files can be placed either in the assets folder or served from an external server.
 
 ## Screenshots
 
 ## Features
 
 * Browse across the markdown files within the same folder / served under the same base URL.
-* Opens other Links in webview
-* Supports Header browsing and history
-* Supports Latex equations (both $<>$  and $$<>$$)
-* Basic Navigation menu, which disappears when reading the document.
-* provided as widget hence it can be embedded into any other widget. Not necessary to be a standalone page.
+* Opens other links in a webview.
+* Supports Header browsing and history.
+* Supports Latex equations (Use $..$ and $$..$$).
+* Basic navigation menu, which disappears when reading the document.
+* is provided as a widget; hence, it can be embedded into any other widget. It is not necessary to be a standalone page.
 
-For rendering markdown files, **markdown_widget**  package is used. Refer [demo](https://asjqkkkk.github.io/markdown_widget) to understand the features supported and the limitations.
+For rendering markdown files, the markdown_widget package is used. Refer to the [demo](https://asjqkkkk.github.io/markdown_widget) to understand the supported features and limitations.
 
 ## Getting started
 
@@ -29,7 +29,7 @@ flutter pub add markdown_browser
 
 ### Add riverpod
 
-This package uses riverpod to mange state.
+This package uses Riverpod to manage state.
 
 ```bash
 flutter pub add flutter_riverpod
@@ -86,14 +86,13 @@ flutter:
 
 ```
 
-Invoke the widget with urlBase `assets/user_manual_1`
+Invoke the widget with urlBase set to `assets/user_manual_1`.
 
 ### Online
 
 Ensure the link `<urlBase>/<landingPage>` is valid.
 
-To test this package for online feature, a test server is provided under example/server folder.
-If you are tesing a desktop application, ensure you have python3, python3-pip and python3-venv are installed and run the provided script.
+To test this package for online feature, a test server is provided under example/server folder. Ensure you have python3, python3-pip and python3-venv are installed and run the provided script.
 
 On a linux box, this can be done as below
 
@@ -101,10 +100,9 @@ On a linux box, this can be done as below
 sudo apt install python3 python3-pip python3-venv -y
 cd example/server
 bash start_server.sh
-
 ```
 
-This will start the Flask server and serve on local as well as network address.
+This will start the Flask server and serve on both the local and network addresses.
 
 ```text
 ....
@@ -117,9 +115,9 @@ WARNING: This is a development server. Do not use it in a production deployment.
 
 ```
 
-If you are testing the application on the same machine, the online variant should work without any change using `http://127.0.0.1:5000`.
+If you are testing the application on the same machine, the online variant should work without any changes using `http://127.0.0.1:5000`.
 
-If you are testing on a mobile device or another machine, ensure that the server is serving on the network by modifying the BaseURL to `http://x.x.x.x:5000` before running the flutter app.
+If you are testing on a mobile device or another machine, ensure that the server is serving on the network by modifying the BaseURL to `http://x.x.x.x:5000` before running the Flutter app.
 
 ## Additional information
 
@@ -141,6 +139,6 @@ If you are testing on a mobile device or another machine, ensure that the server
 
 ## Support
 
-If you face any issue or have any enhancement suggestions, create [issue on github](https://github.com/cloudonlanapps/markdown_browser/issues) or contact me at cloudonlanapps (at) gmail (doc) com
+If you face any issues or have any enhancement suggestions, create an [issue on GitHub](https://github.com/cloudonlanapps/markdown_browser/issues) or contact me at <cloudonlanapps@gmail.com>.
 
 You may also send your pull request if you want to contribute.
