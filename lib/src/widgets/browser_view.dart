@@ -5,6 +5,7 @@ import 'package:markdown_widget/markdown_widget.dart';
 import '../models/markdown_file.dart';
 import '../providers/content.dart';
 import '../providers/current_file.dart';
+import 'error_view.dart';
 import 'markdown_view.dart';
 import 'menu_view.dart';
 import 'show_with_menu.dart';
@@ -23,22 +24,21 @@ class BrowserView extends ConsumerWidget {
         ref.watch(markdownFileProvider(currentFile.path));
 
     return content.when(
-        data: (String data) => _UserDocs(
+        data: (String data) => _BrowserView(
               data: data,
               currentFile: currentFile,
               onExit: onExit,
             ),
-        error: (error, _) => _UserDocs(
-              data: error.toString(),
-              currentFile: currentFile,
+        error: (error, _) => ErrorView(
+              errorString: error.toString(),
               onExit: onExit,
             ),
-        loading: () => const CircularProgressIndicator());
+        loading: () => const Center(child: CircularProgressIndicator()));
   }
 }
 
-class _UserDocs extends StatefulWidget {
-  const _UserDocs({
+class _BrowserView extends StatefulWidget {
+  const _BrowserView({
     required this.data,
     required this.currentFile,
     required this.onExit,
@@ -48,10 +48,10 @@ class _UserDocs extends StatefulWidget {
   final void Function() onExit;
 
   @override
-  State<StatefulWidget> createState() => _UserDocsState();
+  State<StatefulWidget> createState() => _BrowserViewState();
 }
 
-class _UserDocsState extends State<_UserDocs> {
+class _BrowserViewState extends State<_BrowserView> {
   final TocController tocController = TocController();
   bool tocVisible = false;
   void onToggleTOCVisible() {

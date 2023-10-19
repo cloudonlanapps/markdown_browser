@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class MenuVisibiltiyNotifier extends StateNotifier<bool> {
   Timer? timer;
   MenuVisibiltiyNotifier({bool isVisible = true}) : super(true) {
-    showWithTimeOut(const Duration(seconds: 5));
+    showWithTimeOut(const Duration(seconds: 10));
   }
 
   showWithTimeOut(Duration duration) {
@@ -21,7 +21,7 @@ class MenuVisibiltiyNotifier extends StateNotifier<bool> {
     state = false;
   }
 
-  holdMore() => showWithTimeOut(const Duration(seconds: 3));
+  holdMore() => showWithTimeOut(const Duration(seconds: 10));
   onDispose() {
     timer?.cancel();
   }

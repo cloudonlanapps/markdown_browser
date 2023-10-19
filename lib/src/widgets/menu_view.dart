@@ -54,38 +54,55 @@ class MenuView extends ConsumerWidget {
     return Container(
       color: Theme.of(context).colorScheme.surface.withAlpha(128),
       height: 56,
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        GestureDetector(
-          onTap: () {
-            ref.read(menuVisibilityProvider.notifier).hide();
-            onExit();
-          },
-          child: Transform.rotate(
-            angle: 3.14,
-            child: Icon(MdiIcons.exitToApp),
-          ),
-        ),
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              GestureDetector(
-                  onTap: (history.isEmpty) ? null : () => gotoPreviousPage(ref),
-                  child: const Icon(Icons.arrow_back)),
-              GestureDetector(
-                  onTap: () => toggleTOC(ref),
-                  child: const Icon(Icons.format_list_bulleted)),
-              GestureDetector(
-                  onTap: () => gotoHomePage(ref),
-                  child: const Icon(Icons.home)),
-              GestureDetector(
-                onTap: () => forceHideMenu(ref),
-                child: const Icon(Icons.close),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: GestureDetector(
+                onTap: () {
+                  ref.read(menuVisibilityProvider.notifier).hide();
+                  onExit();
+                },
+                child: Transform.rotate(
+                  angle: 3.14,
+                  child: Icon(
+                    MdiIcons.exitToApp,
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                ),
               ),
-            ],
+            ),
           ),
-        ),
-      ]),
+          Expanded(
+            flex: 3,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                    onTap:
+                        (history.isEmpty) ? null : () => gotoPreviousPage(ref),
+                    child: history.isEmpty
+                        ? Container()
+                        : Icon(
+                            MdiIcons.arrowLeft,
+                          )),
+                GestureDetector(
+                    onTap: () => toggleTOC(ref),
+                    child: Icon(MdiIcons.tableOfContents)),
+                GestureDetector(
+                    onTap: () => gotoHomePage(ref), child: Icon(MdiIcons.home)),
+                GestureDetector(
+                  onTap: () => forceHideMenu(ref),
+                  child: Icon(MdiIcons.close),
+                ),
+              ],
+            ),
+          ),
+        ]),
+      ),
     );
   }
 }

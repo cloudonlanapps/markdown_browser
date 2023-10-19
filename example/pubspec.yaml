@@ -1,0 +1,30 @@
+name: markdown_browser_example
+
+description: example to demonstrate usage of markdown_browser package
+
+publish_to: 'none' 
+
+version: 1.0.0
+
+environment:
+  sdk: '>=3.0.6 <4.0.0'
+  
+dependencies:
+  flutter:
+    sdk: flutter
+  markdown_browser:
+    path: ../
+  flutter_riverpod: ^2.4.4
+  material_design_icons_flutter: ^7.0.7296
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+  - assets/user_manual_1/
+  - assets/user_manual_1/topic/
