@@ -59,7 +59,7 @@ class MainPage extends StatelessWidget {
               height: 16,
             ),
             OpenManual(
-              urlBase: "http://127.0.0.1",
+              urlBase: "http://127.0.0.1:5000",
               label: "Open Online Manual",
               icon: Icon(MdiIcons.cellphoneLink),
             ),
