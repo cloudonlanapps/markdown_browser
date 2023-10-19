@@ -139,6 +139,6 @@ If you are testing on a mobile device or another machine, ensure that the server
 
 ## Support
 
-If you face any issues or have any enhancement suggestions, create an [issue on GitHub](https://github.com/cloudonlanapps/markdown_browser/issues) or contact me at <cloudonlanapps@gmail.com>.
+If you face any issues or have any enhancement suggestions, create an [issue on GitHub](https://github.com/cloudonlanapps/markdown_browser/issues) or contact me at cloudonlanapps (at) gmail (dot) com.
 
 You may also send your pull request if you want to contribute.
