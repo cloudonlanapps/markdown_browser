@@ -10,7 +10,7 @@ import '../providers/history.dart';
 import 'error_view.dart';
 import 'markdown_view.dart';
 import '../overlay_menu/menu_item.dart';
-import '../overlay_menu/show_with_menu.dart';
+import '../overlay_menu/overlay_menu.dart';
 
 class BrowserView extends ConsumerWidget {
   const BrowserView({
