@@ -12,7 +12,9 @@ class MenuVisibiltiyNotifier extends StateNotifier<bool> {
     timer?.cancel();
     state = true;
     timer = Timer(duration, () {
-      state = false;
+      if (mounted) {
+        state = false;
+      }
     });
   }
 

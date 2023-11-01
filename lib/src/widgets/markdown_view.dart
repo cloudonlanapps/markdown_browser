@@ -7,7 +7,6 @@ import '../helpers/url_manager.dart';
 import '../models/markdown_file.dart';
 import '../providers/current_file.dart';
 import '../providers/history.dart';
-import '../providers/menu_visibility.dart';
 
 class MarkdownView extends ConsumerWidget {
   const MarkdownView({
@@ -57,9 +56,9 @@ class MarkdownView extends ConsumerWidget {
             decoration: TextDecoration.underline,
           ),
           onTap: (url) async {
-            if (context.mounted) {
+            /* if (context.mounted) {
               ref.read(menuVisibilityProvider.notifier).holdMore();
-            }
+            } */
             // If the url contains the base url, remove it.
             if (url.startsWith('${currentFile.urlBase}/')) {
               url = url.replaceFirst('${currentFile.urlBase}/', "");
