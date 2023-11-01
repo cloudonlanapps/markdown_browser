@@ -66,7 +66,7 @@ class _BrowserViewState extends ConsumerState<_BrowserView> {
           currentFile: widget.currentFile,
           data: widget.data,
           tocVisible: tocVisible),
-      topMenuItemSpecial: CLMenuItem(
+      topMenuItemSpecialLeft: CLMenuItem(
         "Exit",
         MdiIcons.arrowLeftBold,
         showTitle: true,
@@ -74,7 +74,7 @@ class _BrowserViewState extends ConsumerState<_BrowserView> {
           widget.onExit();
         },
       ),
-      topMenuItems: [
+      bottomMenuItems: [
         CLMenuItem("Previous", MdiIcons.arrowLeft,
             onTap: history.isEmpty
                 ? null
@@ -98,11 +98,15 @@ class _BrowserViewState extends ConsumerState<_BrowserView> {
                           currentSection: home.currentSection);
                     }
                   }),
-        CLMenuItem("ToC", MdiIcons.tableOfContents, onTap: () {
-          setState(() {
-            tocVisible = !tocVisible;
-          });
-        })
+        CLMenuItem(
+          "ToC",
+          MdiIcons.tableOfContents,
+          onTap: () {
+            setState(() {
+              tocVisible = !tocVisible;
+            });
+          },
+        )
       ],
     );
   }

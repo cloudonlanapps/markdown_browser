@@ -64,8 +64,8 @@ class MenuAnimator extends StatelessWidget {
 
     return SlideTransition(
       position: Tween<Offset>(
-        end: endOffset,
-        begin: Offset.zero,
+        begin: endOffset,
+        end: Offset.zero,
       ).animate(CurvedAnimation(
         parent: animationController,
         curve: curve ?? Curves.easeInOut,

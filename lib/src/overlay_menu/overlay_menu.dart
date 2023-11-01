@@ -12,15 +12,35 @@ class OverlayMenu extends ConsumerWidget {
   const OverlayMenu({
     super.key,
     required this.mainWidget,
-    required this.topMenuItems,
-    this.topMenuItemSpecial,
+    this.topMenuItems,
+    this.topMenuItemSpecialLeft,
+    this.bottomMenuItems,
+    this.bottomMenuItemSpecialLeft,
   });
   final Widget mainWidget;
-  final List<CLMenuItem> topMenuItems;
-  final CLMenuItem? topMenuItemSpecial;
+  final List<CLMenuItem>? topMenuItems;
+  final CLMenuItem? topMenuItemSpecialLeft;
+  final List<CLMenuItem>? bottomMenuItems;
+  final CLMenuItem? bottomMenuItemSpecialLeft;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Widget? topMenu, bottomMenu;
+    bool hasTop = false;
+    if (topMenuItems != null || topMenuItemSpecialLeft != null) {
+      topMenu = MenuView(
+          menuItemSpecialLeft: topMenuItemSpecialLeft,
+          menuItems: topMenuItems,
+          closeButton: true);
+      hasTop = true;
+    }
+    if (bottomMenuItems != null || bottomMenuItemSpecialLeft != null) {
+      bottomMenu = MenuView(
+          menuItemSpecialLeft: bottomMenuItemSpecialLeft,
+          menuItems: bottomMenuItems,
+          closeButton: !hasTop);
+    }
+
     return ProviderScope(
       overrides: [
         menuVisibilityProvider.overrideWith((ref) {
@@ -31,23 +51,22 @@ class OverlayMenu extends ConsumerWidget {
       ],
       child: _OverlayMenu(
         mainWidget: mainWidget,
-        menuWidget: MenuView(
-          onExitMenuItem: topMenuItemSpecial,
-          menuItems: topMenuItems,
-        ),
+        topMenu: topMenu,
+        bottomMenu: bottomMenu,
       ),
     );
   }
 }
 
 class _OverlayMenu extends ConsumerStatefulWidget {
-  final Widget mainWidget;
-  final Widget menuWidget;
-
   const _OverlayMenu({
     required this.mainWidget,
-    required this.menuWidget,
+    this.topMenu,
+    this.bottomMenu,
   });
+  final Widget mainWidget;
+  final Widget? topMenu;
+  final Widget? bottomMenu;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _OverlayMenuState();
@@ -94,11 +113,14 @@ class _OverlayMenuState extends ConsumerState<_OverlayMenu>
 
   @override
   Widget build(BuildContext context) {
+    if ((widget.topMenu == null) && (widget.bottomMenu == null)) {
+      throw Exception("Either topMenu or bottomMenu or both must be provided");
+    }
     final bool isVisible = ref.watch(menuVisibilityProvider);
     if (!isVisible) {
-      animationController.forward();
-    } else {
       animationController.reverse();
+    } else {
+      animationController.forward();
     }
     return SafeArea(
       child: Listener(
@@ -131,21 +153,38 @@ class _OverlayMenuState extends ConsumerState<_OverlayMenu>
         child: Stack(
           children: [
             widget.mainWidget,
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: MenuAnimator(
-                animationController: animationController,
-                animateFrom: AnimateFrom.top,
-                child: widget.menuWidget,
-              ),
-              /* child: AnimatedOpacity(
+            if (widget.topMenu != null)
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: MenuAnimator(
+                  animationController: animationController,
+                  animateFrom: AnimateFrom.top,
+                  child: widget.topMenu!,
+                ),
+                /* child: AnimatedOpacity(
                 opacity: isVisible ? 1.0 : 0.0,
                 duration: const Duration(seconds: 1),
-                child: widget.menuWidget,
+                child: widget.topMenuItems,
               ), */
-            )
+              ),
+            if (widget.bottomMenu != null)
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: MenuAnimator(
+                  animationController: animationController,
+                  animateFrom: AnimateFrom.bottom,
+                  child: widget.bottomMenu!,
+                ),
+                /* child: AnimatedOpacity(
+                opacity: isVisible ? 1.0 : 0.0,
+                duration: const Duration(seconds: 1),
+                child: widget.topMenuItems,
+              ), */
+              )
           ],
         ),
       ),
