@@ -150,6 +150,18 @@ class _OverlayMenuState extends ConsumerState<_OverlayMenu>
             }
           }
         },
+        onPointerPanZoomUpdate: (PointerPanZoomUpdateEvent event) {
+          debugPrint('trackpad scrolled ${event.panDelta}');
+          if (event.panDelta.dy > 0) {
+            if (context.mounted) {
+              ref.read(menuVisibilityProvider.notifier).holdMore();
+            }
+          } else if (event.panDelta.dy < 0) {
+            if (context.mounted) {
+              ref.read(menuVisibilityProvider.notifier).hide();
+            }
+          }
+        },
         child: Stack(
           children: [
             widget.mainWidget,
