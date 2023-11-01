@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'menu_animator.dart';
 import 'menu_item.dart';
 import 'menu_view.dart';
 import 'menu_visibility.dart';
@@ -28,7 +29,7 @@ class OverlayMenu extends ConsumerWidget {
           return MenuVisibiltiyNotifier();
         }),
       ],
-      child: ShowWithMenu(
+      child: _OverlayMenu(
         mainWidget: mainWidget,
         menuWidget: MenuView(
           onExitMenuItem: topMenuItemSpecial,
@@ -39,27 +40,31 @@ class OverlayMenu extends ConsumerWidget {
   }
 }
 
-class ShowWithMenu extends ConsumerStatefulWidget {
+class _OverlayMenu extends ConsumerStatefulWidget {
   final Widget mainWidget;
   final Widget menuWidget;
 
-  const ShowWithMenu({
-    super.key,
+  const _OverlayMenu({
     required this.mainWidget,
     required this.menuWidget,
   });
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _ShowMarkdownState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _OverlayMenuState();
 }
 
-class _ShowMarkdownState extends ConsumerState<ShowWithMenu> {
+class _OverlayMenuState extends ConsumerState<_OverlayMenu>
+    with SingleTickerProviderStateMixin {
   late final SystemUiOverlayStyle? originalOverlayStyle;
+  late final AnimationController animationController;
   @override
   void initState() {
     // ignore: invalid_use_of_visible_for_testing_member
     originalOverlayStyle = SystemChrome.latestStyle;
-
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
     super.initState();
   }
 
@@ -71,6 +76,7 @@ class _ShowMarkdownState extends ConsumerState<ShowWithMenu> {
       statusBarIconBrightness:
           Brightness.dark, // Control the color of the icons (light/dark)
     ));
+
     super.didChangeDependencies();
   }
 
@@ -82,12 +88,18 @@ class _ShowMarkdownState extends ConsumerState<ShowWithMenu> {
           statusBarIconBrightness:
               Brightness.light, // Control the color of the icons (light/dark)
         ));
+    animationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final bool isVisible = ref.watch(menuVisibilityProvider);
+    if (!isVisible) {
+      animationController.forward();
+    } else {
+      animationController.reverse();
+    }
     return SafeArea(
       child: Listener(
         onPointerSignal: (PointerSignalEvent pointerSignal) {
@@ -123,11 +135,16 @@ class _ShowMarkdownState extends ConsumerState<ShowWithMenu> {
               top: 0,
               left: 0,
               right: 0,
-              child: AnimatedOpacity(
+              child: MenuAnimator(
+                animationController: animationController,
+                animateFrom: AnimateFrom.top,
+                child: widget.menuWidget,
+              ),
+              /* child: AnimatedOpacity(
                 opacity: isVisible ? 1.0 : 0.0,
                 duration: const Duration(seconds: 1),
                 child: widget.menuWidget,
-              ),
+              ), */
             )
           ],
         ),

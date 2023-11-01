@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum MenuBarPosition {
+enum AnimateFrom {
   top,
   bottom,
   left,
@@ -21,7 +21,7 @@ class MenuAnimator extends StatelessWidget {
 
   final AnimationController animationController;
   final bool isVisible;
-  final MenuBarPosition animateFrom;
+  final AnimateFrom animateFrom;
   final Widget child;
   final Curve? curve;
   final Color? backgroundColor;
@@ -30,31 +30,31 @@ class MenuAnimator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final endOffset = switch (animateFrom) {
-      MenuBarPosition.top => const Offset(0.0, -1.0),
-      MenuBarPosition.bottom => const Offset(0.0, 1.0),
-      MenuBarPosition.left => const Offset(-1.0, 0.0),
-      MenuBarPosition.right => const Offset(1.0, 0.0),
+      AnimateFrom.top => const Offset(0.0, -1.0),
+      AnimateFrom.bottom => const Offset(0.0, 1.0),
+      AnimateFrom.left => const Offset(-1.0, 0.0),
+      AnimateFrom.right => const Offset(1.0, 0.0),
     };
     final borderSide = switch (animateFrom) {
-      MenuBarPosition.top => Border(
+      AnimateFrom.top => Border(
           bottom: BorderSide(
             color: Theme.of(context).colorScheme.onSurface,
             width: 0.25,
           ),
         ),
-      MenuBarPosition.bottom => Border(
+      AnimateFrom.bottom => Border(
           top: BorderSide(
             color: Theme.of(context).colorScheme.onSurface,
             width: 0.25,
           ),
         ),
-      MenuBarPosition.left => Border(
+      AnimateFrom.left => Border(
           right: BorderSide(
             color: Theme.of(context).colorScheme.onSurface,
             width: 0.25,
           ),
         ),
-      MenuBarPosition.right => Border(
+      AnimateFrom.right => Border(
           left: BorderSide(
             color: Theme.of(context).colorScheme.onSurface,
             width: 0.25,
